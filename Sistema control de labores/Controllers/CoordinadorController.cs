@@ -6,14 +6,15 @@ using System.Web.Mvc;
 
 namespace Sistema_control_de_labores.Controllers
 {
-    public class HomeController : Controller
+    public class CoordinadorController : Controller
     {
-        public ActionResult Index()
+        // GET: Coordinador
+        public ActionResult ControlUsuarios()
         {
             return View();
         }
 
-        public ActionResult GenerarEstadistico()
+        public ActionResult Solicitudes()
         {
             return View();
         }
