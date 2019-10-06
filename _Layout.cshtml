@@ -1,0 +1,101 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Mi aplicación ASP.NET</title>
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+    <link type="text/css" rel="stylesheet" href="~/Content/materialize.css" media="screen,projection" />
+    <link type="text/css" rel="stylesheet" href="~/Content/Site.css" media="screen,projection" />
+
+    @Styles.Render("~/Content/materialize.css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+
+    <div class="navbar-fixed">
+
+        <nav class="nav-wrapper  brown darken-4">
+            <div class="container">
+                @Html.ActionLink("Sistema de Labores", "Inicio", "Inicio")
+                <a href="#" data-target="menuP" class="sidenav-trigger">
+                    <i class="material-icons">menu</i>
+                </a>
+
+                <ul class="right hide-on-med-and-down">
+                    <li> <a href="#">Registro</a></li>
+                    <li> <ahref="view/Login.aspx">Iniciar Seci&oacute;n</a></li>
+                   @*<li>@Html.ActionLink("Proceso", "Insertar_Proceso", "Proceso")</li>*@
+                </ul>
+            </div>
+        </nav>
+
+
+    </div>
+
+    <ul class="sidenav" id="menuP">
+        <li>
+            <a href="#" class="dropdown-trigger" data-target="ddNuevoUsuario">Registro<i class="material-icons right">arrow_drop_down</i></a>
+            <ul id="ddNuevoUsuario" class="dropdown-content">
+                <li> <a href="#">insertar</a></li>
+            </ul>
+        </li>
+        <li>
+            <a href="#" class="dropdown-trigger" data-target="ddInicioSecion">Login<i class="material-icons right">arrow_drop_down</i></a>
+            <ul id="ddInicioSecion" class="dropdown-content">
+                <li> <a href="#">iniciar seci&oacute;n</a></li>
+            </ul>
+        </li>
+        @*<li>
+                <a href="#" class="dropdown-trigger" data-target="ddInforme">Tarea<i class="material-icons right">arrow_drop_down</i></a>
+                <ul id="ddInforme" class="dropdown-content">
+                    <li> <a href="#">insertar</a></li>
+                    <li> <a href="#">mostrar</a></li>
+                    <li> <a href="#">actualizar</a></li>
+                    <li> <a href="#">borrar</a></li>
+                </ul>
+            </li>*@
+        @*<li> <a href="#">Gr&aacute;fica</a></li>*@
+    </ul>
+
+
+
+    <div class="container body-content">
+        @RenderBody()
+        @* <hr />*@
+        <footer>
+            <p>&copy; @DateTime.Now.Year - Mi aplicación ASP.NET</p>
+        </footer>
+    </div>
+
+
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/materialize")
+    @RenderSection("scripts", required: false)
+
+
+    @*Es el js que hace que funcione el menu responsive *@
+    <script src="~/Scripts/materialize.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            M.AutoInit();
+        });
+
+    </script>
+    @*fin Es el js que hace que funcione el menu responsive *@
+</body>
+
+
+
+</html>
+
+
+
+
+
+
+
