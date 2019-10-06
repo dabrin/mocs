@@ -1,9 +1,32 @@
-﻿footer {
+﻿html, body {
+    height: 100%;
+    background: rgba(173,170,173,1);
+    background: linear-gradient(to right, rgba(173,170,173,1) 0%, rgba(246,246,246,1) 47%, rgba(189,185,189,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#adaaad', endColorstr='#bdb9bd', GradientType=1 );
+}
+
+footer {
     position: fixed;
     left: 0;
     bottom: 0;
     width: 100%;
-    background-color: red;
+    background-color: #004d40;
     color: white;
     text-align: center;
+}
+
+::-webkit-input-placeholder {
+    color: black;
+}
+
+:-moz-placeholder { /* Firefox 18- */
+    color: black;
+}
+
+::-moz-placeholder { /* Firefox 19+ */
+    color: black;
+}
+
+:-ms-input-placeholder {
+    color: black;
 }
