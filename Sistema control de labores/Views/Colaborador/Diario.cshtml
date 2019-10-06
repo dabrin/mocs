@@ -2,7 +2,150 @@
 @{
     ViewBag.Title = "Diario";
     Layout = "~/Views/Shared/_Layout.cshtml";
+
 }
+<script>
+    var cardElement = document.getElementsByClassName("card")[0];
 
-<h2>Diario</h2>
+    cardElement.addEventListener("click", flip);
 
+    function flip() {
+        cardElement.classList.toggle("flipped")
+    }
+
+    function startTime() {
+        var weekday = new Array();
+        weekday[0] = "Domingo";
+        weekday[1] = "Lunes";
+        weekday[2] = "Martes";
+        weekday[3] = "Miercoles";
+        weekday[4] = "Jueves";
+        weekday[5] = "Viernes";
+        weekday[6] = "Sábado";
+        var month = new Array();
+        month[0] = "Enero";
+        month[1] = "Febrero";
+        month[2] = "Marzo";
+        month[3] = "Abril";
+        month[4] = "Mayo";
+        month[5] = "Junio";
+        month[6] = "Julio";
+        month[7] = "Agosto";
+        month[8] = "Septiembre";
+        month[9] = "Octubre";
+        month[10] = "Noviembre";
+        month[11] = "Diciembre";
+        var today = new Date();
+        var h = today.getHours();
+        var m = today.getMinutes();
+        var s = today.getSeconds();
+        var d = today.getDate();
+        var y = today.getFullYear();
+        var wd = weekday[today.getDay()];
+        var mt = month[today.getMonth()];
+
+        m = checkTime(m);
+        s = checkTime(s);
+        document.getElementById('date').innerHTML =
+            d;
+        document.getElementById('day').innerHTML =
+            wd;
+        document.getElementById('month').innerHTML =
+            mt + "/" + y;
+
+        var t = setTimeout(startTime, 500);
+    }
+    function checkTime(i) {
+        if (i < 10) { i = "0" + i };
+        return i;
+    }
+
+    function onClickDate() {
+
+    }
+
+</script>
+<div class="container" style="font-size:12px;">
+    <div class="card">
+        <div class="front" >
+            <div class="contentfront">
+                <div class="month">
+                    <table>
+                        <tr class="orangeTr">
+                            <th>L</th>
+                            <th>K</th>
+                            <th>M</th>
+                            <th>J</th>
+                            <th>V</th>
+                            <th>S</th>
+                            <th>D</th>
+                        </tr>
+                        <tr class="whiteTr">
+                            <th></th>
+                            <th>1</th>
+                            <th>2</th>
+                            <th>3</th>
+                            <th>4</th>
+                            <th>5</th>
+                            <th>6</th>
+                        </tr>
+                        <tr class="whiteTr">
+                            <th>7</th>
+                            <th>8</th>
+                            <th>9</th>
+                            <th>10</th>
+                            <th>11</th>
+                            <th>12</th>
+                            <th>13</th>
+                        </tr>
+                        <tr class="whiteTr">
+                            <th>14</th>
+                            <th>15</th>
+                            <th>16</th>
+                            <th>17</th>
+                            <th>18</th>
+                            <th>19</th>
+                            <th>20</th>
+                        </tr>
+                        <tr class="whiteTr">
+                            <th>21</th>
+                            <th>22</th>
+                            <th>23</th>
+                            <th>24</th>
+                            <th>25</th>
+                            <th>26</th>
+                            <th>27</th>
+                        </tr>
+                        <tr class="whiteTr">
+                            <th>28</th>
+                            <th>29</th>
+                            <th>30</th>
+                            <th>31</th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </table>
+                </div>
+                <div class="date">
+                    <div class="datecont">
+                        <div id="date"></div>
+                        <div id="day"></div>
+                        <div id="month"></div>
+                        <i class="fa fa-pencil edit" aria-hidden="true"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="back">
+            <!---<div class="contentback">
+              <div class="backcontainer">
+                hhh
+              </div>
+            </div>--->
+        </div>
+    </div>
+</div>
+<script>
+    startTime();
+</script>
