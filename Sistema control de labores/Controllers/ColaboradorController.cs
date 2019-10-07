@@ -28,5 +28,10 @@ namespace Sistema_control_de_labores.Controllers
         {
             return View();
         }
+
+        public ActionResult DiaSeleccionado()
+        {
+            return View();
+        }
     }
 }

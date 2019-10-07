@@ -155,6 +155,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\DiaSeleccionado.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -205,11 +206,11 @@
     <Content Include="Views\Administrador\GestionSubprocesos.cshtml" />
     <Content Include="Views\Colaborador\SeleccionIntervalo.cshtml" />
     <Content Include="Views\Coordinador\Solicitudes.cshtml" />
+    <Content Include="Views\Colaborador\DiaSeleccionado.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Domain\" />
-    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
