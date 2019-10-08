@@ -1,0 +1,528 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="sisContLabModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="TSCL_Proceso">
+          <Key>
+            <PropertyRef Name="TN_id" />
+          </Key>
+          <Property Name="TN_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TC_Nom_Proceso" Type="varchar" MaxLength="60" Nullable="false" />
+        </EntityType>
+        <!--Errores durante la generación:
+advertencia 6013: La tabla o vista 'sisContLab.dbo.TSCL_ProcesoAsignadoUsuario' no tiene definida una clave principal y no es posible inferir ninguna clave principal válida. Esta tabla o vista se ha excluido. Para usar la entidad, necesitará revisar el esquema, agregar las claves correctas y quitar sus comentarios.
+        <EntityType Name="TSCL_ProcesoAsignadoUsuario">
+          <Property Name="TN_id_Usuario" Type="int" />
+          <Property Name="TN_id_Proceso" Type="int" />
+          <Property Name="TN_id_SubProceso" Type="int" />
+        </EntityType>-->
+        <EntityType Name="TSCL_Reporte_Usuario">
+          <Key>
+            <PropertyRef Name="TN_idReporte" />
+          </Key>
+          <Property Name="TN_idReporte" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TN_idUsuario" Type="int" />
+          <Property Name="TN_idSubProceso" Type="int" />
+          <Property Name="TF_RealizaTarea" Type="datetime" />
+          <Property Name="TN_Cantidad" Type="int" />
+        </EntityType>
+        <EntityType Name="TSCL_SolSubPCol">
+          <Key>
+            <PropertyRef Name="TN_id" />
+          </Key>
+          <Property Name="TN_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TN_idUsuarioSolicitante" Type="int" />
+          <Property Name="TN_idUsuarioDestino" Type="int" />
+          <Property Name="TN_idSubProceso" Type="int" />
+          <Property Name="TF_SolicitudRealizada" Type="datetime" />
+        </EntityType>
+        <EntityType Name="TSCL_SubProceso">
+          <Key>
+            <PropertyRef Name="TN_idSubProceso" />
+          </Key>
+          <Property Name="TN_idSubProceso" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TN_idProceso" Type="int" />
+          <Property Name="TC_Nom_SubProceso" Type="varchar" MaxLength="60" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TSCL_Usuario">
+          <Key>
+            <PropertyRef Name="TN_id" />
+          </Key>
+          <Property Name="TN_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TC_Nombre" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="TC_Apellido" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="TN_Edad" Type="int" Nullable="false" />
+          <Property Name="TC_Tipo_Usuario" Type="varchar" MaxLength="5" Nullable="false" />
+        </EntityType>
+        <!--Errores durante la generación:
+error 6004: Una relación hace referencia a la tabla 'sisContLab.dbo.TSCL_ProcesoAsignadoUsuario', pero no se encuentra la tabla.
+        <Association Name="FK_TSCL_ProcesoAsignadoUsuario_TSCL_Proceso" />-->
+        <!--Errores durante la generación:
+error 6004: Una relación hace referencia a la tabla 'sisContLab.dbo.TSCL_ProcesoAsignadoUsuario', pero no se encuentra la tabla.
+        <Association Name="FK_TSCL_ProcesoAsignadoUsuario_TSCL_SubProceso" />-->
+        <!--Errores durante la generación:
+error 6004: Una relación hace referencia a la tabla 'sisContLab.dbo.TSCL_ProcesoAsignadoUsuario', pero no se encuentra la tabla.
+        <Association Name="FK_TSCL_ProcesoAsignadoUsuario_TSCL_Usuario" />-->
+        <Association Name="FK_TSCL_Reporte_Usuario">
+          <End Role="TSCL_Usuario" Type="Self.TSCL_Usuario" Multiplicity="0..1" />
+          <End Role="TSCL_Reporte_Usuario" Type="Self.TSCL_Reporte_Usuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TSCL_Usuario">
+              <PropertyRef Name="TN_id" />
+            </Principal>
+            <Dependent Role="TSCL_Reporte_Usuario">
+              <PropertyRef Name="TN_idUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TSCL_Reporte_Usuario_TSCL_SubProceso">
+          <End Role="TSCL_SubProceso" Type="Self.TSCL_SubProceso" Multiplicity="0..1" />
+          <End Role="TSCL_Reporte_Usuario" Type="Self.TSCL_Reporte_Usuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TSCL_SubProceso">
+              <PropertyRef Name="TN_idSubProceso" />
+            </Principal>
+            <Dependent Role="TSCL_Reporte_Usuario">
+              <PropertyRef Name="TN_idSubProceso" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TSCL_SolSubPCol_TSCL_Usuario_Destino">
+          <End Role="TSCL_Usuario" Type="Self.TSCL_Usuario" Multiplicity="0..1" />
+          <End Role="TSCL_SolSubPCol" Type="Self.TSCL_SolSubPCol" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TSCL_Usuario">
+              <PropertyRef Name="TN_id" />
+            </Principal>
+            <Dependent Role="TSCL_SolSubPCol">
+              <PropertyRef Name="TN_idUsuarioDestino" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TSCL_SolSubPCol_TSCL_Usuario_Solicita">
+          <End Role="TSCL_Usuario" Type="Self.TSCL_Usuario" Multiplicity="0..1" />
+          <End Role="TSCL_SolSubPCol" Type="Self.TSCL_SolSubPCol" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TSCL_Usuario">
+              <PropertyRef Name="TN_id" />
+            </Principal>
+            <Dependent Role="TSCL_SolSubPCol">
+              <PropertyRef Name="TN_idUsuarioSolicitante" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TSCL_SolSubPCol_TSCL_Usuario_SubPSol">
+          <End Role="TSCL_SubProceso" Type="Self.TSCL_SubProceso" Multiplicity="0..1" />
+          <End Role="TSCL_SolSubPCol" Type="Self.TSCL_SolSubPCol" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TSCL_SubProceso">
+              <PropertyRef Name="TN_idSubProceso" />
+            </Principal>
+            <Dependent Role="TSCL_SolSubPCol">
+              <PropertyRef Name="TN_idUsuarioDestino" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TSCL_SubProceso_TSCL_Proceso">
+          <End Role="TSCL_Proceso" Type="Self.TSCL_Proceso" Multiplicity="0..1" />
+          <End Role="TSCL_SubProceso" Type="Self.TSCL_SubProceso" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TSCL_Proceso">
+              <PropertyRef Name="TN_id" />
+            </Principal>
+            <Dependent Role="TSCL_SubProceso">
+              <PropertyRef Name="TN_idProceso" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="PA_Actualiza_Proceso" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id_Proceso" Type="int" Mode="In" />
+          <Parameter Name="nomProceso" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="PA_Actualiza_SubProceso" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id_SubProceso" Type="int" Mode="In" />
+          <Parameter Name="nomSubProceso" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="PA_Consulta_Todos_Proceso" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="PA_Consulta_Todos_SubProceso" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="PA_Elimina_Proceso" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id_Proceso" Type="int" Mode="In" />
+        </Function>
+        <Function Name="PA_Elimina_SubProceso" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id_SubProceso" Type="int" Mode="In" />
+        </Function>
+        <Function Name="PA_Inserta_SubProceso" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id_Proceso" Type="int" Mode="In" />
+          <Parameter Name="nom_SubProceso" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="PA_Insertar_SolSubCol" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="idSolicitante" Type="int" Mode="In" />
+          <Parameter Name="idDestino" Type="int" Mode="In" />
+          <Parameter Name="idSubProceso" Type="int" Mode="In" />
+          <Parameter Name="fechaCreacion" Type="datetime" Mode="In" />
+        </Function>
+        <Function Name="PA_InsertarProceso" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="nomProceso" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="PA_InsertarReporte" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="idUsuario" Type="int" Mode="In" />
+          <Parameter Name="idSubProceso" Type="int" Mode="In" />
+          <Parameter Name="fechaTarea" Type="datetime" Mode="In" />
+          <Parameter Name="cantidad" Type="int" Mode="In" />
+        </Function>
+        <EntityContainer Name="sisContLabModelStoreContainer">
+          <EntitySet Name="TSCL_Proceso" EntityType="Self.TSCL_Proceso" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TSCL_Reporte_Usuario" EntityType="Self.TSCL_Reporte_Usuario" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TSCL_SolSubPCol" EntityType="Self.TSCL_SolSubPCol" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TSCL_SubProceso" EntityType="Self.TSCL_SubProceso" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TSCL_Usuario" EntityType="Self.TSCL_Usuario" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_TSCL_Reporte_Usuario" Association="Self.FK_TSCL_Reporte_Usuario">
+            <End Role="TSCL_Usuario" EntitySet="TSCL_Usuario" />
+            <End Role="TSCL_Reporte_Usuario" EntitySet="TSCL_Reporte_Usuario" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TSCL_Reporte_Usuario_TSCL_SubProceso" Association="Self.FK_TSCL_Reporte_Usuario_TSCL_SubProceso">
+            <End Role="TSCL_SubProceso" EntitySet="TSCL_SubProceso" />
+            <End Role="TSCL_Reporte_Usuario" EntitySet="TSCL_Reporte_Usuario" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TSCL_SolSubPCol_TSCL_Usuario_Destino" Association="Self.FK_TSCL_SolSubPCol_TSCL_Usuario_Destino">
+            <End Role="TSCL_Usuario" EntitySet="TSCL_Usuario" />
+            <End Role="TSCL_SolSubPCol" EntitySet="TSCL_SolSubPCol" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TSCL_SolSubPCol_TSCL_Usuario_Solicita" Association="Self.FK_TSCL_SolSubPCol_TSCL_Usuario_Solicita">
+            <End Role="TSCL_Usuario" EntitySet="TSCL_Usuario" />
+            <End Role="TSCL_SolSubPCol" EntitySet="TSCL_SolSubPCol" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TSCL_SolSubPCol_TSCL_Usuario_SubPSol" Association="Self.FK_TSCL_SolSubPCol_TSCL_Usuario_SubPSol">
+            <End Role="TSCL_SubProceso" EntitySet="TSCL_SubProceso" />
+            <End Role="TSCL_SolSubPCol" EntitySet="TSCL_SolSubPCol" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TSCL_SubProceso_TSCL_Proceso" Association="Self.FK_TSCL_SubProceso_TSCL_Proceso">
+            <End Role="TSCL_Proceso" EntitySet="TSCL_Proceso" />
+            <End Role="TSCL_SubProceso" EntitySet="TSCL_SubProceso" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="sisContLabModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="TSCL_Proceso">
+          <Key>
+            <PropertyRef Name="TN_id" />
+          </Key>
+          <Property Name="TN_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TC_Nom_Proceso" Type="String" MaxLength="60" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="TSCL_SubProceso" Relationship="Self.FK_TSCL_SubProceso_TSCL_Proceso" FromRole="TSCL_Proceso" ToRole="TSCL_SubProceso" />
+        </EntityType>
+        <EntityType Name="TSCL_SubProceso">
+          <Key>
+            <PropertyRef Name="TN_idSubProceso" />
+          </Key>
+          <Property Name="TN_idSubProceso" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TN_idProceso" Type="Int32" />
+          <Property Name="TC_Nom_SubProceso" Type="String" MaxLength="60" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="TSCL_Proceso" Relationship="Self.FK_TSCL_SubProceso_TSCL_Proceso" FromRole="TSCL_SubProceso" ToRole="TSCL_Proceso" />
+          <NavigationProperty Name="TSCL_Reporte_Usuario" Relationship="sisContLabModel.FK_TSCL_Reporte_Usuario_TSCL_SubProceso" FromRole="TSCL_SubProceso" ToRole="TSCL_Reporte_Usuario" />
+          <NavigationProperty Name="TSCL_SolSubPCol" Relationship="sisContLabModel.FK_TSCL_SolSubPCol_TSCL_Usuario_SubPSol" FromRole="TSCL_SubProceso" ToRole="TSCL_SolSubPCol" />
+        </EntityType>
+        <EntityType Name="TSCL_Usuario">
+          <Key>
+            <PropertyRef Name="TN_id" />
+          </Key>
+          <Property Name="TN_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TC_Nombre" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="TC_Apellido" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="TN_Edad" Type="Int32" Nullable="false" />
+          <Property Name="TC_Tipo_Usuario" Type="String" MaxLength="5" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="TSCL_Reporte_Usuario" Relationship="sisContLabModel.FK_TSCL_Reporte_Usuario" FromRole="TSCL_Usuario" ToRole="TSCL_Reporte_Usuario" />
+          <NavigationProperty Name="TSCL_SolSubPCol" Relationship="sisContLabModel.FK_TSCL_SolSubPCol_TSCL_Usuario_Destino" FromRole="TSCL_Usuario" ToRole="TSCL_SolSubPCol" />
+          <NavigationProperty Name="TSCL_SolSubPCol1" Relationship="sisContLabModel.FK_TSCL_SolSubPCol_TSCL_Usuario_Solicita" FromRole="TSCL_Usuario" ToRole="TSCL_SolSubPCol" />
+        </EntityType>
+        <Association Name="FK_TSCL_SubProceso_TSCL_Proceso">
+          <End Role="TSCL_Proceso" Type="Self.TSCL_Proceso" Multiplicity="0..1" />
+          <End Role="TSCL_SubProceso" Type="Self.TSCL_SubProceso" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TSCL_Proceso">
+              <PropertyRef Name="TN_id" />
+            </Principal>
+            <Dependent Role="TSCL_SubProceso">
+              <PropertyRef Name="TN_idProceso" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="sisContLabEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="TSCL_Proceso" EntityType="Self.TSCL_Proceso" />
+          <EntitySet Name="TSCL_SubProceso" EntityType="Self.TSCL_SubProceso" />
+          <EntitySet Name="TSCL_Usuario" EntityType="Self.TSCL_Usuario" />
+          <AssociationSet Name="FK_TSCL_SubProceso_TSCL_Proceso" Association="Self.FK_TSCL_SubProceso_TSCL_Proceso">
+            <End Role="TSCL_Proceso" EntitySet="TSCL_Proceso" />
+            <End Role="TSCL_SubProceso" EntitySet="TSCL_SubProceso" />
+          </AssociationSet>
+          <FunctionImport Name="PA_Actualiza_Proceso">
+            <Parameter Name="id_Proceso" Mode="In" Type="Int32" />
+            <Parameter Name="nomProceso" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="PA_Actualiza_SubProceso">
+            <Parameter Name="id_SubProceso" Mode="In" Type="Int32" />
+            <Parameter Name="nomSubProceso" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="PA_Consulta_Todos_Proceso" ReturnType="Collection(sisContLabModel.PA_Consulta_Todos_Proceso_Result)" />
+          <FunctionImport Name="PA_Consulta_Todos_SubProceso" ReturnType="Collection(sisContLabModel.PA_Consulta_Todos_SubProceso_Result)" />
+          <FunctionImport Name="PA_Elimina_Proceso">
+          <Parameter Name="id_Proceso" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="PA_Elimina_SubProceso">
+          <Parameter Name="id_SubProceso" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="PA_Inserta_SubProceso" ReturnType="Collection(sisContLabModel.PA_Inserta_SubProceso_Result)">
+            <Parameter Name="id_Proceso" Mode="In" Type="Int32" />
+            <Parameter Name="nom_SubProceso" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="PA_InsertarProceso">
+          <Parameter Name="nomProceso" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="PA_InsertarReporte">
+            <Parameter Name="idUsuario" Mode="In" Type="Int32" />
+            <Parameter Name="idSubProceso" Mode="In" Type="Int32" />
+            <Parameter Name="fechaTarea" Mode="In" Type="DateTime" />
+            <Parameter Name="cantidad" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="TSCL_Reporte_Usuario" EntityType="sisContLabModel.TSCL_Reporte_Usuario" />
+          <AssociationSet Name="FK_TSCL_Reporte_Usuario" Association="sisContLabModel.FK_TSCL_Reporte_Usuario">
+            <End Role="TSCL_Usuario" EntitySet="TSCL_Usuario" />
+            <End Role="TSCL_Reporte_Usuario" EntitySet="TSCL_Reporte_Usuario" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TSCL_Reporte_Usuario_TSCL_SubProceso" Association="sisContLabModel.FK_TSCL_Reporte_Usuario_TSCL_SubProceso">
+            <End Role="TSCL_SubProceso" EntitySet="TSCL_SubProceso" />
+            <End Role="TSCL_Reporte_Usuario" EntitySet="TSCL_Reporte_Usuario" />
+          </AssociationSet>
+          <EntitySet Name="TSCL_SolSubPCol" EntityType="sisContLabModel.TSCL_SolSubPCol" />
+          <AssociationSet Name="FK_TSCL_SolSubPCol_TSCL_Usuario_Destino" Association="sisContLabModel.FK_TSCL_SolSubPCol_TSCL_Usuario_Destino">
+            <End Role="TSCL_Usuario" EntitySet="TSCL_Usuario" />
+            <End Role="TSCL_SolSubPCol" EntitySet="TSCL_SolSubPCol" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TSCL_SolSubPCol_TSCL_Usuario_Solicita" Association="sisContLabModel.FK_TSCL_SolSubPCol_TSCL_Usuario_Solicita">
+            <End Role="TSCL_Usuario" EntitySet="TSCL_Usuario" />
+            <End Role="TSCL_SolSubPCol" EntitySet="TSCL_SolSubPCol" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TSCL_SolSubPCol_TSCL_Usuario_SubPSol" Association="sisContLabModel.FK_TSCL_SolSubPCol_TSCL_Usuario_SubPSol">
+            <End Role="TSCL_SubProceso" EntitySet="TSCL_SubProceso" />
+            <End Role="TSCL_SolSubPCol" EntitySet="TSCL_SolSubPCol" />
+          </AssociationSet>
+          <FunctionImport Name="PA_Insertar_SolSubCol">
+            <Parameter Name="idSolicitante" Mode="In" Type="Int32" />
+            <Parameter Name="idDestino" Mode="In" Type="Int32" />
+            <Parameter Name="idSubProceso" Mode="In" Type="Int32" />
+            <Parameter Name="fechaCreacion" Mode="In" Type="DateTime" />
+          </FunctionImport>
+        </EntityContainer>
+        <ComplexType Name="PA_Consulta_Todos_Proceso_Result">
+          <Property Type="Int32" Name="TN_id" Nullable="false" />
+          <Property Type="String" Name="TC_Nom_Proceso" Nullable="false" MaxLength="60" />
+        </ComplexType>
+        <ComplexType Name="PA_Consulta_Todos_SubProceso_Result">
+          <Property Type="Int32" Name="TN_idSubProceso" Nullable="false" />
+          <Property Type="String" Name="TC_Nom_SubProceso" Nullable="false" MaxLength="60" />
+        </ComplexType>
+        <ComplexType Name="PA_Inserta_SubProceso_Result">
+          <Property Type="Int32" Name="ErrorNumero" Nullable="true" />
+          <Property Type="String" Name="ErrorMensaje" Nullable="true" MaxLength="4000" />
+        </ComplexType>
+        <EntityType Name="TSCL_Reporte_Usuario">
+          <Key>
+            <PropertyRef Name="TN_idReporte" />
+          </Key>
+          <Property Name="TN_idReporte" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TN_idUsuario" Type="Int32" />
+          <Property Name="TN_idSubProceso" Type="Int32" />
+          <Property Name="TF_RealizaTarea" Type="DateTime" Precision="3" />
+          <Property Name="TN_Cantidad" Type="Int32" />
+          <NavigationProperty Name="TSCL_Usuario" Relationship="sisContLabModel.FK_TSCL_Reporte_Usuario" FromRole="TSCL_Reporte_Usuario" ToRole="TSCL_Usuario" />
+          <NavigationProperty Name="TSCL_SubProceso" Relationship="sisContLabModel.FK_TSCL_Reporte_Usuario_TSCL_SubProceso" FromRole="TSCL_Reporte_Usuario" ToRole="TSCL_SubProceso" />
+        </EntityType>
+        <Association Name="FK_TSCL_Reporte_Usuario">
+          <End Type="sisContLabModel.TSCL_Usuario" Role="TSCL_Usuario" Multiplicity="0..1" />
+          <End Type="sisContLabModel.TSCL_Reporte_Usuario" Role="TSCL_Reporte_Usuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TSCL_Usuario">
+              <PropertyRef Name="TN_id" />
+            </Principal>
+            <Dependent Role="TSCL_Reporte_Usuario">
+              <PropertyRef Name="TN_idUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TSCL_Reporte_Usuario_TSCL_SubProceso">
+          <End Type="sisContLabModel.TSCL_SubProceso" Role="TSCL_SubProceso" Multiplicity="0..1" />
+          <End Type="sisContLabModel.TSCL_Reporte_Usuario" Role="TSCL_Reporte_Usuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TSCL_SubProceso">
+              <PropertyRef Name="TN_idSubProceso" />
+            </Principal>
+            <Dependent Role="TSCL_Reporte_Usuario">
+              <PropertyRef Name="TN_idSubProceso" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="TSCL_SolSubPCol">
+          <Key>
+            <PropertyRef Name="TN_id" />
+          </Key>
+          <Property Name="TN_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TN_idUsuarioSolicitante" Type="Int32" />
+          <Property Name="TN_idUsuarioDestino" Type="Int32" />
+          <Property Name="TF_SolicitudRealizada" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="TSCL_Usuario" Relationship="sisContLabModel.FK_TSCL_SolSubPCol_TSCL_Usuario_Destino" FromRole="TSCL_SolSubPCol" ToRole="TSCL_Usuario" />
+          <NavigationProperty Name="TSCL_Usuario1" Relationship="sisContLabModel.FK_TSCL_SolSubPCol_TSCL_Usuario_Solicita" FromRole="TSCL_SolSubPCol" ToRole="TSCL_Usuario" />
+          <Property Name="TN_idSubProceso" Type="Int32" />
+          <NavigationProperty Name="TSCL_SubProceso" Relationship="sisContLabModel.FK_TSCL_SolSubPCol_TSCL_Usuario_SubPSol" FromRole="TSCL_SolSubPCol" ToRole="TSCL_SubProceso" />
+        </EntityType>
+        <Association Name="FK_TSCL_SolSubPCol_TSCL_Usuario_Destino">
+          <End Type="sisContLabModel.TSCL_Usuario" Role="TSCL_Usuario" Multiplicity="0..1" />
+          <End Type="sisContLabModel.TSCL_SolSubPCol" Role="TSCL_SolSubPCol" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TSCL_Usuario">
+              <PropertyRef Name="TN_id" />
+            </Principal>
+            <Dependent Role="TSCL_SolSubPCol">
+              <PropertyRef Name="TN_idUsuarioDestino" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TSCL_SolSubPCol_TSCL_Usuario_Solicita">
+          <End Type="sisContLabModel.TSCL_Usuario" Role="TSCL_Usuario" Multiplicity="0..1" />
+          <End Type="sisContLabModel.TSCL_SolSubPCol" Role="TSCL_SolSubPCol" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TSCL_Usuario">
+              <PropertyRef Name="TN_id" />
+            </Principal>
+            <Dependent Role="TSCL_SolSubPCol">
+              <PropertyRef Name="TN_idUsuarioSolicitante" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TSCL_SolSubPCol_TSCL_Usuario_SubPSol">
+          <End Type="sisContLabModel.TSCL_SubProceso" Role="TSCL_SubProceso" Multiplicity="0..1" />
+          <End Type="sisContLabModel.TSCL_SolSubPCol" Role="TSCL_SolSubPCol" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TSCL_SubProceso">
+              <PropertyRef Name="TN_idSubProceso" />
+            </Principal>
+            <Dependent Role="TSCL_SolSubPCol">
+              <PropertyRef Name="TN_idUsuarioDestino" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="sisContLabModelStoreContainer" CdmEntityContainer="sisContLabEntities">
+          <EntitySetMapping Name="TSCL_Proceso">
+            <EntityTypeMapping TypeName="sisContLabModel.TSCL_Proceso">
+              <MappingFragment StoreEntitySet="TSCL_Proceso">
+                <ScalarProperty Name="TN_id" ColumnName="TN_id" />
+                <ScalarProperty Name="TC_Nom_Proceso" ColumnName="TC_Nom_Proceso" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TSCL_SubProceso">
+            <EntityTypeMapping TypeName="sisContLabModel.TSCL_SubProceso">
+              <MappingFragment StoreEntitySet="TSCL_SubProceso">
+                <ScalarProperty Name="TN_idSubProceso" ColumnName="TN_idSubProceso" />
+                <ScalarProperty Name="TN_idProceso" ColumnName="TN_idProceso" />
+                <ScalarProperty Name="TC_Nom_SubProceso" ColumnName="TC_Nom_SubProceso" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TSCL_Usuario">
+            <EntityTypeMapping TypeName="sisContLabModel.TSCL_Usuario">
+              <MappingFragment StoreEntitySet="TSCL_Usuario">
+                <ScalarProperty Name="TN_id" ColumnName="TN_id" />
+                <ScalarProperty Name="TC_Nombre" ColumnName="TC_Nombre" />
+                <ScalarProperty Name="TC_Apellido" ColumnName="TC_Apellido" />
+                <ScalarProperty Name="TN_Edad" ColumnName="TN_Edad" />
+                <ScalarProperty Name="TC_Tipo_Usuario" ColumnName="TC_Tipo_Usuario" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="PA_Actualiza_Proceso" FunctionName="sisContLabModel.Store.PA_Actualiza_Proceso" />
+          <FunctionImportMapping FunctionImportName="PA_Actualiza_SubProceso" FunctionName="sisContLabModel.Store.PA_Actualiza_SubProceso" />
+          <FunctionImportMapping FunctionImportName="PA_Consulta_Todos_Proceso" FunctionName="sisContLabModel.Store.PA_Consulta_Todos_Proceso">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="sisContLabModel.PA_Consulta_Todos_Proceso_Result">
+                <ScalarProperty Name="TN_id" ColumnName="TN_id" />
+                <ScalarProperty Name="TC_Nom_Proceso" ColumnName="TC_Nom_Proceso" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="PA_Consulta_Todos_SubProceso" FunctionName="sisContLabModel.Store.PA_Consulta_Todos_SubProceso">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="sisContLabModel.PA_Consulta_Todos_SubProceso_Result">
+                <ScalarProperty Name="TN_idSubProceso" ColumnName="TN_idSubProceso" />
+                <ScalarProperty Name="TC_Nom_SubProceso" ColumnName="TC_Nom_SubProceso" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="PA_Elimina_Proceso" FunctionName="sisContLabModel.Store.PA_Elimina_Proceso" />
+          <FunctionImportMapping FunctionImportName="PA_Elimina_SubProceso" FunctionName="sisContLabModel.Store.PA_Elimina_SubProceso" />
+          <FunctionImportMapping FunctionImportName="PA_Inserta_SubProceso" FunctionName="sisContLabModel.Store.PA_Inserta_SubProceso">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="sisContLabModel.PA_Inserta_SubProceso_Result">
+                <ScalarProperty Name="ErrorNumero" ColumnName="ErrorNumero" />
+                <ScalarProperty Name="ErrorMensaje" ColumnName="ErrorMensaje" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="PA_InsertarProceso" FunctionName="sisContLabModel.Store.PA_InsertarProceso" />
+          <FunctionImportMapping FunctionImportName="PA_InsertarReporte" FunctionName="sisContLabModel.Store.PA_InsertarReporte" />
+          <EntitySetMapping Name="TSCL_Reporte_Usuario">
+            <EntityTypeMapping TypeName="sisContLabModel.TSCL_Reporte_Usuario">
+              <MappingFragment StoreEntitySet="TSCL_Reporte_Usuario">
+                <ScalarProperty Name="TN_Cantidad" ColumnName="TN_Cantidad" />
+                <ScalarProperty Name="TF_RealizaTarea" ColumnName="TF_RealizaTarea" />
+                <ScalarProperty Name="TN_idSubProceso" ColumnName="TN_idSubProceso" />
+                <ScalarProperty Name="TN_idUsuario" ColumnName="TN_idUsuario" />
+                <ScalarProperty Name="TN_idReporte" ColumnName="TN_idReporte" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TSCL_SolSubPCol">
+            <EntityTypeMapping TypeName="sisContLabModel.TSCL_SolSubPCol">
+              <MappingFragment StoreEntitySet="TSCL_SolSubPCol">
+                <ScalarProperty Name="TN_idSubProceso" ColumnName="TN_idSubProceso" />
+                <ScalarProperty Name="TF_SolicitudRealizada" ColumnName="TF_SolicitudRealizada" />
+                <ScalarProperty Name="TN_idUsuarioDestino" ColumnName="TN_idUsuarioDestino" />
+                <ScalarProperty Name="TN_idUsuarioSolicitante" ColumnName="TN_idUsuarioSolicitante" />
+                <ScalarProperty Name="TN_id" ColumnName="TN_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="PA_Insertar_SolSubCol" FunctionName="sisContLabModel.Store.PA_Insertar_SolSubCol" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="187c6cab5d6a4277916700b5b18a0307" Name="Diagram1">
+        <EntityTypeShape EntityType="sisContLabModel.TSCL_Proceso" Width="1.5" PointX="0.75" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="sisContLabModel.TSCL_SubProceso" Width="1.5" PointX="3" PointY="0.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="sisContLabModel.TSCL_Usuario" Width="1.5" PointX="0.75" PointY="3.75" IsExpanded="true" />
+        <AssociationConnector Association="sisContLabModel.FK_TSCL_SubProceso_TSCL_Proceso" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="sisContLabModel.TSCL_Reporte_Usuario" Width="1.5" PointX="5.25" PointY="2.25" />
+        <AssociationConnector Association="sisContLabModel.FK_TSCL_Reporte_Usuario" />
+        <AssociationConnector Association="sisContLabModel.FK_TSCL_Reporte_Usuario_TSCL_SubProceso" />
+        <EntityTypeShape EntityType="sisContLabModel.TSCL_SolSubPCol" Width="1.5" PointX="3" PointY="4" />
+        <AssociationConnector Association="sisContLabModel.FK_TSCL_SolSubPCol_TSCL_Usuario_Destino" />
+        <AssociationConnector Association="sisContLabModel.FK_TSCL_SolSubPCol_TSCL_Usuario_Solicita" />
+        <AssociationConnector Association="sisContLabModel.FK_TSCL_SolSubPCol_TSCL_Usuario_SubPSol" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
