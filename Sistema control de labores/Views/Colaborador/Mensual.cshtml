@@ -4,5 +4,60 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Mensual</h2>
-
+<div class="row" style="height:2%;text-align:center;margin-top:10px;">
+    <label style="font-size:25px;color:black;"><span id="mesSpan">Mes</span> - <span id="annoSpan">Año</span></label>
+</div>
+<div class="row" style="height:98%;">
+    <div class="col s1" style="height:100%;margin:25px">
+        <div>
+            <label style="margin:10px;color:black;">Mes</label>
+            <a class='dropdown-trigger btn' href='#' data-target='dropdown1' style="margin:10px;width:100%;">Enero</a>
+            <ul id='dropdown1' class='dropdown-content'>
+                <li><a href="#!">Enero</a></li>
+                <li><a href="#!">Febrero</a></li>
+                <li><a href="#!">Marzo</a></li>
+                <li><a href="#!">Abril</a></li>
+                <li><a href="#!">Mayo</a></li>
+                <li><a href="#!">Junio</a></li>
+                <li><a href="#!">Julio</a></li>
+                <li><a href="#!">Agosto</a></li>
+                <li><a href="#!">Septiembre</a></li>
+                <li><a href="#!">Octubre</a></li>
+                <li><a href="#!">Noviembre</a></li>
+                <li><a href="#!">Diciembre</a></li>
+            </ul>
+            <label style="margin:10px;color:black;">Año</label>
+            <a class='dropdown-trigger btn' href='#' data-target='dropdown2' style="margin:10px;width:100%;">2010</a>
+            <ul id='dropdown2' class='dropdown-content'>
+                <li><a href="#!">2010</a></li>
+                <li><a href="#!">2011</a></li>
+                <li><a href="#!">2012</a></li>
+                <li><a href="#!">2013</a></li>
+                <li><a href="#!">2014</a></li>
+                <li><a href="#!">2015</a></li>
+                <li><a href="#!">2016</a></li>
+                <li><a href="#!">2017</a></li>
+                <li><a href="#!">2018</a></li>
+                <li><a href="#!">2019</a></li>
+            </ul>
+            <hr style="width:110%">
+            <button class="waves-effect waves-light btn-large" style="margin:10px;width:100%;">Guardar</button>
+            <button class="waves-effect waves-light btn-large red darken-3" style="margin:10px;width:100%;" onclick="window.history.back();">Regresar</button>
+        </div>
+    </div>
+    <div class="col s2 " style="height:100%;margin:25px">
+        <!--Generar estos divs de manera dinamica basandose en la cantidad de subprocesos del usuario-->
+        <form action="/Form/FormOne" method="post">
+            <label style="color:black;font-size:18px;margin:5px;">Subproceso 1</label>
+            <input type="number" style="width:100%;background: white;border-radius:10px;margin:5px;" min="0" />
+            <label style="color:black;font-size:18px;margin:5px;">Subproceso 2</label>
+            <input type="number" style="width:100%;background: white;border-radius:10px;margin:5px;" min="0" />
+        </form>
+    </div>
+</div>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+    var elems = document.querySelectorAll('.dropdown-trigger');
+    var instances = M.Dropdown.init(elems, null);
+  });
+</script>
