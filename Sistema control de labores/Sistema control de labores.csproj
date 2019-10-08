@@ -162,6 +162,8 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\CoordinadorViewModel.cs" />
+    <Compile Include="Models\CrearReporteViewModel.cs" />
     <Compile Include="Models\DiaSeleccionado.cs" />
     <Compile Include="Models\Entity1.Context.cs" />
     <Compile Include="Models\Entity1.Context1.cs">
@@ -192,6 +194,8 @@
     <Compile Include="Models\PA_Inserta_SubProceso_Result.cs">
       <DependentUpon>Entity1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Solicitud_SubProceso_Colaborador_View_Model.cs" />
+    <Compile Include="Models\SubProcesoViewModel.cs" />
     <Compile Include="Models\TSCL_Proceso.cs">
       <DependentUpon>Entity1.tt</DependentUpon>
     </Compile>
