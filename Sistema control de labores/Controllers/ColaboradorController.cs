@@ -9,7 +9,7 @@ namespace Sistema_control_de_labores.Controllers
     public class ColaboradorController : Controller
     {
         // GET: Colaborador
-        public ActionResult Dario()
+        public ActionResult Diario()
         {
             return View();
         }
@@ -25,6 +25,11 @@ namespace Sistema_control_de_labores.Controllers
         }
 
         public ActionResult SeleccionIntervalo()
+        {
+            return View();
+        }
+
+        public ActionResult DiaSeleccionado()
         {
             return View();
         }
