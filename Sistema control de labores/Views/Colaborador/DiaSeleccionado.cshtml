@@ -1,0 +1,23 @@
+﻿@{
+    ViewBag.Title = "DiaSeleccionado";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+    <div class="row" style="height:2%;text-align:center;margin-top:10px;">
+        <label style="font-size:25px;color:black;"><span id="diaSpan">Dia</span> - <span id="mesSpan">Mes</span> - <span id="annoSpan">Año</span></label>
+    </div>
+    <div class="row" style="height:98%;">
+        <div class="col s1" style="height:100%;margin:25px">
+            <div>
+                <button class="waves-effect waves-light btn-large" style="margin:10px;">Guardar</button>
+                <button class="waves-effect waves-light btn-large red darken-3" style="margin:10px;" onclick="window.history.back();">Regresar</button>
+            </div>
+        </div>
+        <div class="col s2 " style="height:100%;margin:25px"><!--Generar estos divs de manera dinamica basandose en la cantidad de subprocesos del usuario-->
+            <form action="/Form/FormOne" method="post">
+                <label style="color:black;font-size:18px;margin:5px;">Subproceso 1</label>
+                <input type="number" style="width:100%;background: white;border-radius:10px;margin:5px;" min="0"/>
+                <label style="color:black;font-size:18px;margin:5px;">Subproceso 2</label>
+                <input type="number" style="width:100%;background: white;border-radius:10px;margin:5px;" min="0"/>
+            </form>
+        </div>
+    </div>
