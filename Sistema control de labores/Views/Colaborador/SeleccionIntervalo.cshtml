@@ -1,0 +1,22 @@
+﻿
+@{
+    ViewBag.Title = "SeleccionIntervalo";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+    <div class="row center-align valign-wrapper" style="height:100%;">
+        <form action="/Form/FormOne" method="post" style="max-width: 500px;position:absolute;left:0; right:0; margin:0 auto;  top: 50%; transform: translateY(-50%);" onsubmit="return confirm('¿Esta seguro de su seleccion?');">
+            <div class="col s4" style="height:100%;">
+                <input type="submit" class="waves-effect waves-light btn-large" value="Diario" />
+            </div>
+            <div class="col s4" style="height:100%;">
+                <input type="submit" class="waves-effect waves-light btn-large" value="Semanal" />
+            </div>
+            <div class="col s4" style="height:100%;">
+                <input type="submit" class="waves-effect waves-light btn-large" value="Mensual" />
+            </div>
+        </form>
+        <div style="width:100%; text-align:center">
+            <label style="color:black;font-size:18px;">ADVERTENCIA: Su seleccion sera permanente hasta el inicio del proximo mes</label>
+        </div>
+    </div>
