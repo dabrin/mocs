@@ -1,6 +1,48 @@
-﻿
+﻿@model Sistema_control_de_labores.Models.ViewModel.Solicitud_SubProceso_Colaborador_View_Model
+
+
+
 @{
     ViewBag.Title = "Solicitud_SubProceso_Colaborador";
 }
 
+
+
+<h2>@ViewBag.Title</h2>
+
+@using (Html.BeginForm("Solicitud_SubProceso_Colaborador", "Coordinador", FormMethod.Post))
+{
+    <div class="section container">
+        <div class="row col s12">
+            <div>
+                @Html.LabelFor(d => d.TN_idUsuarioSolicitante)
+                @Html.TextBoxFor(d => d.TN_idUsuarioSolicitante, "", new { @class = "form-control" })
+                @Html.ValidationMessageFor(d => d.TN_idUsuarioSolicitante, null, new { @class = "danger" })
+            </div>
+
+            <div>
+                @Html.LabelFor(d => d.TN_idUsuarioDestino)
+                @Html.TextBoxFor(d => d.TN_idUsuarioDestino, "", new { @class = "form-control" })
+                @Html.ValidationMessageFor(d => d.TN_idUsuarioDestino, null, new { @class = "danger" })
+            </div>
+
+            <div>
+                @Html.LabelFor(d => d.TN_idSubProceso)
+                @*@Html.DropDownList("TSCL_SubProceso", new SelectList(ViewBag.subProcesos,
+                    "TC_Nom_SubProceso","TN_idSubProceso"))*@
+                @Html.DropDownListFor(d=> d.TN_idSubProceso, new SelectList(ViewBag.subProcesos,
+                "TN_idSubProceso", "TC_Nom_SubProceso"))
+                @Html.ValidationMessageFor(d => d.TN_idSubProceso, null, new { @class = "danger" })
+            </div>
+            <div style="text-align:right">
+                <button class="btn waves-effect waves-light green" type="submit" name="action">
+                    Guardar
+                    <i class="material-icons right">send</i>
+                </button>
+            </div>
+
+        </div>
+
+    </div>
+}
 
