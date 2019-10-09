@@ -1,7 +1,44 @@
-﻿
+﻿@model Sistema_control_de_labores.Models.ViewModel.CrearReporteViewModel
 @{
-    ViewBag.Title = "CrearReporte";
+    ViewBag.Title = "Crear Reporte";
 }
 
-<h2>CrearReporte</h2>
+<h2>@ViewBag.Title</h2>
 
+
+@using (Html.BeginForm("CrearReporte", "Coordinador", FormMethod.Post))
+{
+    <div class="section container">
+        <div class="row col s12">
+            <div>
+                @Html.LabelFor(d => d.TN_idUsuario)
+                @Html.TextBoxFor(d => d.TN_idUsuario, "", new { @class = "form-control" })
+                @Html.ValidationMessageFor(d => d.TN_idUsuario, null, new { @class = "danger" })
+            </div>
+
+            <div>
+                @Html.LabelFor(d => d.TN_idSubProceso)
+                @Html.TextBoxFor(d => d.TN_idSubProceso, "", new { @class = "form-control" })
+                @Html.ValidationMessageFor(d => d.TN_idSubProceso, null, new { @class = "danger" })
+            </div>
+            <div>
+                @Html.LabelFor(d => d.TF_RealizaTarea)
+                @Html.EditorFor(d => d.TF_RealizaTarea, "", new { @class = "form-control" })
+                @Html.ValidationMessageFor(d => d.TF_RealizaTarea, null, new { @class = "danger" })
+            </div>
+            <div>
+                @Html.LabelFor(d => d.TN_Cantidad)
+                @Html.TextBoxFor(d => d.TN_Cantidad, "", new { @class = "form-control" })
+                @Html.ValidationMessageFor(d => d.TN_Cantidad, null, new { @class = "danger" })
+            </div>
+            <div style="text-align:right">
+                <button class="btn waves-effect waves-light green" type="submit" name="action">
+                    Guardar
+                    <i class="material-icons right">send</i>
+                </button>
+            </div>
+
+        </div>
+
+    </div>
+}
