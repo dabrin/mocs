@@ -9,7 +9,7 @@ namespace Sistema_control_de_labores.Controllers
 {
     public class CoordinadorController : Controller
     {
-        // GET: Coordinador
+
 
         public ActionResult CrearReporte()
         {
@@ -87,6 +87,7 @@ namespace Sistema_control_de_labores.Controllers
                 throw new Exception(ex.Message);
             }
 
+
             //return View();
         }
 
@@ -99,5 +100,6 @@ namespace Sistema_control_de_labores.Controllers
 
             return resultado;
         }
+
     }
 }
