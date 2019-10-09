@@ -278,6 +278,7 @@
     <Content Include="Views\Colaborador\SeleccionIntervalo.cshtml" />
     <Content Include="Views\Coordinador\Solicitudes.cshtml" />
     <Content Include="Views\Colaborador\DiaSeleccionado.cshtml" />
+    <Content Include="Views\Coordinador\Solicitud_SubProceso_Colaborador.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
