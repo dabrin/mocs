@@ -4,5 +4,58 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Solicitudes</h2>
+<h2>Solicitudes SubProcesos</h2>
+<div class="container">
+    <a class='dropdown-trigger btn' href='#' data-target='dropdown2'>Drop Me!</a>
 
+    <ul id="dropdown2" class="dropdown-content">
+        <li><a href="#!">Dabrin<span class="badge">1</span></a></li>
+        <li><a href="#!">Daniel<span class="badge">2</span></a></li>
+        <li><a href="#!">Luis<span class="badge">3</span></a></li>
+    </ul>
+
+    <ul id="dropdown1" class="dropdown-content">
+        @for (int i = 1; i <= 3; i = i + 1)
+        {
+            <li><a href="#!">SubProceso @i<span class="badge">1</span></a></li>
+        }
+    </ul>
+
+    <table class="striped">
+        <thead>
+            <tr>
+                <th>SubProceso</th>
+                <th>Estado</th>
+
+            </tr>
+        </thead>
+
+        <tbody>
+            @for (int i = 1; i <= 3; i = i + 1)
+            {
+                if (i < 3)
+                {
+                    <tr>
+                        <td>SubProceso @i</td>
+
+                        <td> Activo </td>
+                    </tr>
+                }
+                else
+                {
+                    <tr>
+                        <td><a class='dropdown-trigger btn' href='#' data-target='dropdown1'>SubProcesos!</a></td>
+
+                        <td><a class="waves-effect waves-light btn">Solicitar</a></td>
+                    </tr>
+
+                }
+
+            }
+        </tbody>
+    </table>
+
+
+
+
+</div>
