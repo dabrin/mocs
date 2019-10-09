@@ -32,31 +32,117 @@
         // Set chart options
         var options = {
             'title': 'Actividad del usuario',
-            'backgroundColor': 'transparent'
+            'backgroundColor': 'transparent',
+            'height': 500
         };
+
+        var options2 = {
+            'title': 'Actividad del usuario',
+            'backgroundColor': 'transparent',
+            'width': 800,
+            'height': 500
+        }
 
         // Instantiate and draw our chart, passing in some options.
         var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
         var chart2 = new google.visualization.ColumnChart(document.getElementById('chart_div2'));
         var chart3 = new google.visualization.LineChart(document.getElementById('chart_div3'));
         chart.draw(data, options);
-        chart2.draw(data, options);
-        chart3.draw(data, options);
+        chart2.draw(data, options2);
+        chart3.draw(data, options2);
     }
+
+    function showChart(value) {
+        var chart = document.getElementById('chart_div');
+        var chart2 = document.getElementById('chart_div2');
+        var chart3 = document.getElementById('chart_div3');
+        if (value == 0) {
+            chart.style.display = "";
+            chart2.style.display = "none";
+            chart3.style.display = "none";
+        }
+        else if (value == 1) {
+            chart.style.display = "none";
+            chart2.style.display = "";
+            chart3.style.display = "none";
+        }
+        else {
+            chart.style.display = "none";
+            chart2.style.display = "none";
+            chart3.style.display = "";
+        }
+    }
+
+    $( function() {
+        $("#datepicker").datepicker({changeMonth: true,changeYear: true}).datepicker("setDate", new Date());
+      });
+    $( function() {
+          $("#datepicker2").datepicker({changeMonth: true,changeYear: true}).datepicker("setDate", new Date());
+      });
 </script>
-<div class="row">
-
+<div class="row" style="height: 10%;margin:10px">
+    <div class=" col s12" style="height:100%;text-align:center;">
+        <label style="color:black;font-size:24px">Usuario</label>
+    </div>
 </div>
-<div class="row">
-    <div class="col s4">
-        <div id="chart_div" style="background:none"></div>
+<div class="row" style="height:50%; width: 100%">
+    <div class="col s2">
+        <a class='dropdown-trigger btn' href='#' data-target='dropdown1' style="margin:10px;width:100%;">Grafico</a>
+        <ul id='dropdown1' class='dropdown-content'>
+            <li><a href="javascript:void(0);" onclick="showChart(0);">Pie</a></li>
+            <li><a href="javascript:void(0);" onclick="showChart(1);">Barra</a></li>
+            <li><a href="javascript:void(0);" onclick="showChart(2);">Linea</a></li>
+        </ul>
     </div>
-    <div class="col s4">
-        <div id="chart_div2" style="background:none"></div>
+    <div class="col s8" style="text-align:center">
+        <div style="display:flex;">
+            <p style="width:30%;margin: 5px;">Inicio: <input type="text" id="datepicker"></p>
+            <p style="width:30%;margin: 5px;">Fin: <input type="text" id="datepicker2"></p>
+        </div>
+        <div id="chart_div" style="background:none;height:100%;width:100%;"></div>
+        <div id="chart_div2" style="background:none;height:100%;width:100%;display:none;"></div>
+        <div id="chart_div3" style="background:none;height:100%;width:100%;display:none;"></div>
     </div>
-    <div class="col s4">
-        <div id="chart_div3" style="background:none"></div>
-    </div>
-    
 </div>
 
+<div class="row" style="width: 75%; margin: 0 auto; margin-bottom: 50px;">
+    <table class="striped">
+        <thead>
+            <tr>
+                <th>Proceso</th>
+                <th>Cantidad</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Proceso 1</td>
+                <td>3</td>
+            </tr>
+            <tr>
+                <td>Proceso 2</td>
+                <td>1</td>
+            </tr>
+            <tr>
+                <td>Proceso 3</td>
+                <td>1</td>
+            </tr>
+            <tr>
+                <td>Proceso 4</td>
+                <td>1</td>
+            </tr>
+            <tr>
+                <td>Proceso 5</td>
+                <td>2</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var elems = document.querySelectorAll('.dropdown-trigger');
+        var instances = M.Dropdown.init(elems, null);
+    });
+    var height = $('footer').first().height;
+    $('footer').css('margin-bottom', height);
+</script>
