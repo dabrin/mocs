@@ -4,5 +4,153 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>EstadisticoProceso</h2>
+<script type="text/javascript">
 
+    // Load the Visualization API and the corechart package.
+    google.charts.load('current', { 'packages': ['corechart'] });
+
+    // Set a callback to run when the Google Visualization API is loaded.
+    google.charts.setOnLoadCallback(drawChart);
+
+    // Callback that creates and populates a data table,
+    // instantiates the pie chart, passes in the data and
+    // draws it.
+    function drawChart() {
+
+        // Create the data table.
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'Subprocesos');
+        data.addColumn('number', 'Cantidad');
+        data.addRows([
+            ['Juan', 28],
+            ['Marta', 15],
+            ['Francisco', 22],
+        ]);
+
+        // Set chart options
+        var options = {
+            'title': 'Actividad del usuario',
+            'backgroundColor': 'transparent',
+            'height': 500
+        };
+
+        var options2 = {
+            'title': 'Actividad del usuario',
+            'backgroundColor': 'transparent',
+            'width': 800,
+            'height': 500
+        }
+
+        // Instantiate and draw our chart, passing in some options.
+        var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+        var chart2 = new google.visualization.ColumnChart(document.getElementById('chart_div2'));
+        var chart3 = new google.visualization.LineChart(document.getElementById('chart_div3'));
+        chart.draw(data, options);
+        chart2.draw(data, options2);
+        chart3.draw(data, options2);
+    }
+
+    function showChart(value) {
+        var chart = document.getElementById('chart_div');
+        var chart2 = document.getElementById('chart_div2');
+        var chart3 = document.getElementById('chart_div3');
+        if (value == 0) {
+            chart.style.display = "";
+            chart2.style.display = "none";
+            chart3.style.display = "none";
+        }
+        else if (value == 1) {
+            chart.style.display = "none";
+            chart2.style.display = "";
+            chart3.style.display = "none";
+        }
+        else {
+            chart.style.display = "none";
+            chart2.style.display = "none";
+            chart3.style.display = "";
+        }
+    }
+
+    $(function () {
+        $("#datepicker").datepicker({ changeMonth: true, changeYear: true }).datepicker("setDate", new Date());
+    });
+    $(function () {
+        $("#datepicker2").datepicker({ changeMonth: true, changeYear: true }).datepicker("setDate", new Date());
+    });
+</script>
+<div class="row" style="height: 10%;margin:10px">
+    <div class=" col s12" style="height:100%;text-align:center;">
+        <label style="color:black;font-size:24px">Proceso</label>
+    </div>
+</div>
+<div class="row" style="height:50%; width: 100%">
+    <div class="col s2">
+        <a class='dropdown-trigger btn' href='#' data-target='dropdown1' style="margin:10px;width:100%;">Grafico</a>
+        <ul id='dropdown1' class='dropdown-content'>
+            <li><a href="javascript:void(0);" onclick="showChart(0);">Pie</a></li>
+            <li><a href="javascript:void(0);" onclick="showChart(1);">Barra</a></li>
+            <li><a href="javascript:void(0);" onclick="showChart(2);">Linea</a></li>
+        </ul>
+    </div>
+    <div class="col s8" style="text-align:center">
+        <div style="display:flex;">
+            <p style="width:30%;margin: 5px;">Inicio: <input type="text" id="datepicker"></p>
+            <p style="width:30%;margin: 5px;">Fin: <input type="text" id="datepicker2"></p>
+        </div>
+        <div id="chart_div" style="background:none;height:100%;width:100%;"></div>
+        <div id="chart_div2" style="background:none;height:100%;width:100%;display:none;"></div>
+        <div id="chart_div3" style="background:none;height:100%;width:100%;display:none;"></div>
+    </div>
+</div>
+
+<div class="row spaceFooter" style="width: 75%; margin: 0 auto; margin-bottom: 50px;">
+    <table class="striped">
+        <thead>
+            <tr>
+                <th>Usuario</th>
+                <th>Subproceso 1</th>
+                <th>Subproceso 2</th>
+                <th>Subproceso 3</th>
+                <th>Subproceso 4</th>
+                <th>Subproceso 5</th>
+                <th>Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Juan</td>
+                <td>3</td>
+                <td>2</td>
+                <td>5</td>
+                <td>8</td>
+                <td>10</td>
+                <td>28</td>
+            </tr>
+            <tr>
+                <td>Marta</td>
+                <td>1</td>
+                <td>2</td>
+                <td>3</td>
+                <td>4</td>
+                <td>5</td>
+                <td>15</td>
+            </tr>
+            <tr>
+                <td>Francisco</td>
+                <td>10</td>
+                <td>3</td>
+                <td>3</td>
+                <td>3</td>
+                <td>3</td>
+                <td>22</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var elems = document.querySelectorAll('.dropdown-trigger');
+        var instances = M.Dropdown.init(elems, null);
+    });
+</script>
