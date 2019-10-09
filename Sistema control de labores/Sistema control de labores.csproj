@@ -279,7 +279,7 @@
     <Content Include="Views\Coordinador\Solicitudes.cshtml" />
     <Content Include="Views\Colaborador\DiaSeleccionado.cshtml" />
     <Content Include="Views\Coordinador\Solicitud_SubProceso_Colaborador.cshtml" />
-    <Content Include="Views\Coordinador\obtenerSubProcesos.cshtml" />
+    <Content Include="Views\Coordinador\CrearReporte.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
